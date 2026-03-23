@@ -30,7 +30,8 @@ dotenv.config({ quiet: true });
 
 interface GenerateOptions {
   apiKey?: string;
-  elevenlabsApiKey?: string;
+  aivisApiKey?: string;
+  aivisModelUuid?: string;
   title?: string;
   topic?: string;
 }
@@ -87,8 +88,12 @@ class ContentFS {
 async function generateStory(options: GenerateOptions) {
   try {
     let apiKey = options.apiKey || process.env.OPENAI_API_KEY;
-    let elevenlabsApiKey =
-      options.elevenlabsApiKey || process.env.ELEVENLABS_API_KEY;
+    let aivisApiKey =
+      options.aivisApiKey || process.env.AIVIS_API_KEY;
+    const aivisModelUuid =
+      options.aivisModelUuid ||
+      process.env.AIVIS_MODEL_UUID ||
+      "a59cb814-0083-4369-8542-f51a29e72af7";
 
     if (!apiKey) {
       const response = await prompts({
@@ -106,21 +111,21 @@ async function generateStory(options: GenerateOptions) {
       apiKey = response.apiKey;
     }
 
-    if (!elevenlabsApiKey) {
+    if (!aivisApiKey) {
       const response = await prompts({
         type: "password",
-        name: "elevenlabsApiKey",
-        message: "Enter your ElevenLabs API key:",
+        name: "aivisApiKey",
+        message: "Enter your Aivis Cloud API key:",
         validate: (value) =>
-          value.length > 0 || "ElevenLabs API key is required",
+          value.length > 0 || "Aivis API key is required",
       });
 
-      if (!response.elevenlabsApiKey) {
-        console.log(chalk.red("API key is required. Exiting..."));
+      if (!response.aivisApiKey) {
+        console.log(chalk.red("Aivis API key is required. Exiting..."));
         process.exit(1);
       }
 
-      elevenlabsApiKey = response.elevenlabsApiKey;
+      aivisApiKey = response.aivisApiKey;
     }
 
     let { title, topic } = options;
@@ -180,11 +185,7 @@ async function generateStory(options: GenerateOptions) {
         text: item.text,
         imageDescription: item.imageDescription,
         uid: uuidv4(),
-        audioTimestamps: {
-          characters: [],
-          characterStartTimesSeconds: [],
-          characterEndTimesSeconds: [],
-        },
+        durationSeconds: 0,
       };
 
       storyWithDetails.content.push(contentWithDetails);
@@ -205,15 +206,16 @@ async function generateStory(options: GenerateOptions) {
         },
       });
       imagesSpinner.text = `[${i * 2 + 2}/${storyWithDetails.content.length * 2}] Generating voice for ${storyItem.text}`;
-      const timings = await generateVoice(
+      const result = await generateVoice(
         storyItem.text,
-        elevenlabsApiKey!,
+        aivisApiKey!,
         contentFs.getAudioPath(storyItem.uid),
+        aivisModelUuid,
       );
-      storyItem.audioTimestamps = timings;
+      storyItem.durationSeconds = result.durationSeconds;
     }
     contentFs.saveDescriptor(storyWithDetails);
-    imagesSpinner.succeed(chalk.green("Images generated!"));
+    imagesSpinner.succeed(chalk.green("Images and voice generated!"));
 
     const finalSpinner = ora("Generating final result...").start();
     const timeline = createTimeLineFromStoryWithDetails(storyWithDetails);
@@ -241,6 +243,14 @@ yargs(hideBin(process.argv))
           type: "string",
           description: "OpenAI API key",
         })
+        .option("aivis-api-key", {
+          type: "string",
+          description: "Aivis Cloud API key",
+        })
+        .option("aivis-model-uuid", {
+          type: "string",
+          description: "Aivis voice model UUID",
+        })
         .option("title", {
           alias: "t",
           type: "string",
@@ -256,6 +266,8 @@ yargs(hideBin(process.argv))
     async (argv) => {
       await generateStory({
         apiKey: argv["api-key"],
+        aivisApiKey: argv["aivis-api-key"],
+        aivisModelUuid: argv["aivis-model-uuid"],
         title: argv.title,
         topic: argv.topic,
       });
@@ -271,6 +283,14 @@ yargs(hideBin(process.argv))
           type: "string",
           description: "OpenAI API key",
         })
+        .option("aivis-api-key", {
+          type: "string",
+          description: "Aivis Cloud API key",
+        })
+        .option("aivis-model-uuid", {
+          type: "string",
+          description: "Aivis voice model UUID",
+        })
         .option("title", {
           alias: "t",
           type: "string",
@@ -286,6 +306,8 @@ yargs(hideBin(process.argv))
     async (argv) => {
       await generateStory({
         apiKey: argv["api-key"],
+        aivisApiKey: argv["aivis-api-key"],
+        aivisModelUuid: argv["aivis-model-uuid"],
         title: argv.title,
         topic: argv.topic,
       });
