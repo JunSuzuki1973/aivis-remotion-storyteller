@@ -1,8 +1,7 @@
 import z from "zod";
 import * as fs from "fs";
-import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
-import { CharacterAlignmentResponseModel } from "@elevenlabs/elevenlabs-js/api";
 import { IMAGE_HEIGHT, IMAGE_WIDTH } from "../src/lib/constants";
+import type { AudioSynthesisResult } from "../src/lib/types";
 
 let apiKey: string | null = null;
 
@@ -145,31 +144,95 @@ export const getGenerateImageDescriptionPrompt = (storyText: string) => {
   return prompt;
 };
 
-const saveBase64ToMp3 = (data: string, path: string) => {
-  const buffer = Buffer.from(data, "base64");
-  fs.writeFileSync(path, buffer as Uint8Array);
-};
-
+/**
+ * Aivis Cloud API を使用して音声合成を行う
+ *
+ * @param text - 合成するテキスト
+ * @param aivisApiKey - Aivis Cloud API キー
+ * @param outputPath - 出力MP3ファイルパス
+ * @param modelUuid - Aivis音声モデルUUID（省略時はデフォルト）
+ * @returns 音声の長さ（秒）を含む結果
+ */
 export const generateVoice = async (
   text: string,
-  apiKey: string,
-  path: string,
-): Promise<CharacterAlignmentResponseModel> => {
-  const client = new ElevenLabsClient({
-    environment: "https://api.elevenlabs.io",
-    apiKey,
+  aivisApiKey: string,
+  outputPath: string,
+  modelUuid: string = "a59cb814-0083-4369-8542-f51a29e72af7",
+): Promise<AudioSynthesisResult> => {
+  const dir = require("path").dirname(outputPath);
+  fs.mkdirSync(dir, { recursive: true });
+
+  const res = await fetch("https://api.aivis-project.com/v1/tts/synthesize", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${aivisApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model_uuid: modelUuid,
+      text: text,
+      use_ssml: false,
+      use_volume_normalizer: true,
+      output_format: "mp3",
+      output_sampling_rate: 44100,
+      output_audio_channels: "mono",
+      leading_silence_seconds: 0.0,
+      trailing_silence_seconds: 0.3,
+    }),
   });
 
-  const voiceId = "21m00Tcm4TlvDq8ikWAM";
-
-  const data = await client.textToSpeech.convertWithTimestamps(voiceId, {
-    text,
-  });
-
-  if (!data.alignment || !data.alignment.characterEndTimesSeconds.length) {
-    throw new Error("ElevenLabs response missing timestamps");
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Aivis API error (${res.status}): ${errorText}`);
   }
 
-  saveBase64ToMp3(data.audioBase64, path);
-  return data.alignment;
+  const arrayBuffer = await res.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  fs.writeFileSync(outputPath, buffer);
+
+  const durationSeconds = estimateMp3Duration(buffer);
+
+  return { durationSeconds, outputPath };
 };
+
+/**
+ * MP3ファイルのおおよその長さを推定する
+ * MPEG1 Layer3 フレームヘッダー解析
+ */
+function estimateMp3Duration(buffer: Buffer): number {
+  const bitrateTable = [0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 0];
+  const sampleRateTable = [44100, 48000, 32000, 0];
+
+  let totalFrames = 0;
+  let totalSamples = 0;
+  let sampleRate = 44100;
+
+  for (let i = 0; i < buffer.length - 4; i++) {
+    if (buffer[i] === 0xff && (buffer[i + 1] & 0xe0) === 0xe0) {
+      const version = (buffer[i + 1] >> 3) & 0x03;
+      const layer = (buffer[i + 1] >> 1) & 0x03;
+
+      if (version === 3 && layer === 1) {
+        const bitrateIdx = (buffer[i + 2] >> 4) & 0x0f;
+        const sampleRateIdx = (buffer[i + 2] >> 2) & 0x03;
+        const padding = (buffer[i + 2] >> 1) & 0x01;
+
+        const bitrate = bitrateTable[bitrateIdx];
+        sampleRate = sampleRateTable[sampleRateIdx];
+
+        if (bitrate > 0 && sampleRate > 0) {
+          const frameSize = Math.floor((144 * bitrate * 1000) / sampleRate) + padding;
+          totalFrames++;
+          totalSamples += 1152;
+          i += frameSize - 1;
+        }
+      }
+    }
+  }
+
+  if (totalFrames === 0 || sampleRate === 0) {
+    return buffer.length / (128 * 1000 / 8);
+  }
+
+  return totalSamples / sampleRate;
+}

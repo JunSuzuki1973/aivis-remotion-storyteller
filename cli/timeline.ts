@@ -22,11 +22,7 @@ export const createTimeLineFromStoryWithDetails = (
   for (let i = 0; i < storyWithDetails.content.length; i++) {
     const content = storyWithDetails.content[i];
 
-    const lenMs = Math.ceil(
-      content.audioTimestamps.characterEndTimesSeconds[
-        content.audioTimestamps.characterEndTimesSeconds.length - 1
-      ] * 1000,
-    );
+    const lenMs = Math.ceil(content.durationSeconds * 1000);
 
     const bgElem: BackgroundElement = {
       startMs: durationMs,
@@ -44,79 +40,85 @@ export const createTimeLineFromStoryWithDetails = (
       audioUrl: content.uid,
     });
 
-    // hadnle text word by word
-    const words = content.text.split(" ");
-    const {
-      characterStartTimesSeconds: character_start_times_seconds,
-      characterEndTimesSeconds: character_end_times_seconds,
-    } = content.audioTimestamps;
-
-    const MaxSentenseSizeChars = 14;
-
-    let currentText = "";
-    let currentStartMs = character_start_times_seconds[0] * 1000 + durationMs;
-    let currentEndMs = durationMs;
-    let currentCharIndex = 0;
-
-    for (const word of words) {
-      if ((currentText + word).length > MaxSentenseSizeChars) {
-        const textElem: TextElement = {
-          startMs: currentStartMs,
-          endMs: currentEndMs,
-          text: currentText.trim(),
-          position: "center",
-          animations: getTextAnimations(),
-        };
-
-        timeline.text.push(textElem);
-
-        currentText = "";
-        currentStartMs = currentEndMs;
-      }
-
-      currentText += `${word} `;
-      for (let i = 0; i < word.length; i++) {
-        currentEndMs =
-          character_end_times_seconds[currentCharIndex] * 1000 + durationMs;
-        currentCharIndex++;
-      }
-
-      currentEndMs =
-        character_end_times_seconds[currentCharIndex] * 1000 + durationMs;
-      currentCharIndex++;
-    }
-
-    if (currentText.trim().length > 0) {
-      const textElem: TextElement = {
-        startMs: currentStartMs,
-        endMs:
-          character_end_times_seconds[character_end_times_seconds.length - 1] *
-            1000 +
-          durationMs,
-        text: currentText.trim(),
-        position: "center",
-        animations: getTextAnimations(),
-      };
-
-      timeline.text.push(textElem);
-    }
+    // 日本語対応の文字ベース字幕分割
+    const textElements = splitTextForSubtitles(content.text, durationMs, lenMs);
+    timeline.text.push(...textElements);
 
     durationMs += lenMs;
-
     zoomIn = !zoomIn;
   }
 
   return timeline;
 };
 
-export function findAllSpaceIndexes(str: string) {
-  const indexes = [];
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === " ") {
-      indexes.push(i);
+/**
+ * テキストを字幕用に分割する
+ * 日本語（句読点・文字数ベース）と英語（スペース区切り）の両方に対応
+ */
+function splitTextForSubtitles(
+  text: string,
+  baseMs: number,
+  totalLenMs: number,
+): TextElement[] {
+  const MAX_CHARS = 12;
+  const elements: TextElement[] = [];
+  const segments: string[] = [];
+
+  // 句読点・記号で区切りつつ、MAX_CHARS以内に収める
+  let current = "";
+
+  for (let i = 0; i < text.length; i++) {
+    current += text[i];
+
+    const isBreakChar =
+      text[i] === "。" ||
+      text[i] === "、" ||
+      text[i] === "！" ||
+      text[i] === "？" ||
+      text[i] === "." ||
+      text[i] === "," ||
+      text[i] === "!" ||
+      text[i] === "?" ||
+      text[i] === "\n";
+
+    if (current.length >= MAX_CHARS || isBreakChar) {
+      const trimmed = current.trim();
+      if (trimmed.length > 0) {
+        segments.push(trimmed);
+      }
+      current = "";
     }
   }
-  return indexes;
+
+  // 残りのテキスト
+  const remaining = current.trim();
+  if (remaining.length > 0) {
+    segments.push(remaining);
+  }
+
+  if (segments.length === 0) return elements;
+
+  // 各セグメントに時間を均等に割り当て（文字数比例）
+  const totalChars = segments.reduce((sum, s) => sum + s.length, 0);
+  const msPerChar = totalLenMs / totalChars;
+  let charOffset = 0;
+
+  for (const segment of segments) {
+    const startMs = baseMs + Math.floor(charOffset * msPerChar);
+    const endMs = baseMs + Math.floor((charOffset + segment.length) * msPerChar);
+
+    elements.push({
+      startMs,
+      endMs,
+      text: segment,
+      position: "center",
+      animations: getTextAnimations(),
+    });
+
+    charOffset += segment.length;
+  }
+
+  return elements;
 }
 
 export const getBgAnimations = (durationMs: number, zoomIn: boolean) => {
@@ -147,16 +149,13 @@ export const getTextAnimations = () => {
   const startMs = 0;
   const endMs = durationMs;
 
-  // start scale from 0.5 to 0.7
   // eslint-disable-next-line @remotion/deterministic-randomness
   const startScale = Math.random() * 0.2 + 0.5;
-  // dont scale with 40% chance
   // eslint-disable-next-line @remotion/deterministic-randomness
   const dontScale = Math.random() > 0.6;
   // eslint-disable-next-line @remotion/deterministic-randomness
   const bounces = Math.random() > 0.5;
 
-  // scale
   animations.push({
     type: "scale",
     from: dontScale ? 1 : startScale,

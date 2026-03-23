@@ -1,4 +1,3 @@
-import { CharacterAlignmentResponseModel } from "@elevenlabs/elevenlabs-js/api";
 import { z } from "zod";
 
 const BackgroundTransitionTypeSchema = z.union([
@@ -87,6 +86,17 @@ export const VoiceDescriptorSchema = z.object({
 
 export type VoiceDescriptor = z.infer<typeof VoiceDescriptorSchema>;
 
+/**
+ * 音声合成の結果メタデータ
+ * ElevenLabs依存を排除し、Aivis Cloud API対応の自前型に置き換え
+ */
+export interface AudioSynthesisResult {
+  /** 音声の長さ（秒） */
+  durationSeconds: number;
+  /** 出力ファイルパス */
+  outputPath: string;
+}
+
 export interface StoryMetadataWithDetails {
   shortTitle: string;
   content: ContentItemWithDetails[];
@@ -96,5 +106,6 @@ export interface ContentItemWithDetails {
   text: string;
   imageDescription: string;
   uid: string;
-  audioTimestamps: CharacterAlignmentResponseModel;
+  /** 音声の長さ（秒） */
+  durationSeconds: number;
 }
