@@ -194,28 +194,50 @@ async function generateStory(options: GenerateOptions) {
     const contentFs = new ContentFS(title!);
     contentFs.saveDescriptor(storyWithDetails);
 
-    const imagesSpinner = ora("Generating images and voice...").start();
-    for (let i = 0; i < storyWithDetails.content.length; i++) {
-      const storyItem = storyWithDetails.content[i];
-      imagesSpinner.text = `[${i * 2 + 1}/${storyWithDetails.content.length * 2}] Generating image for ${storyItem.text}`;
-      await generateAiImage({
-        prompt: storyItem.imageDescription,
-        path: contentFs.getImagePath(storyItem.uid),
-        onRetry: (attempt) => {
-          imagesSpinner.text = `[${i * 2 + 1}/${storyWithDetails.content.length * 2}] Generating image for ${storyItem.text} (retry ${attempt + 1})`;
-        },
-      });
-      imagesSpinner.text = `[${i * 2 + 2}/${storyWithDetails.content.length * 2}] Generating voice for ${storyItem.text}`;
-      const result = await generateVoice(
-        storyItem.text,
-        aivisApiKey!,
-        contentFs.getAudioPath(storyItem.uid),
-        aivisModelUuid,
-      );
-      storyItem.durationSeconds = result.durationSeconds;
-    }
+    const totalScenes = storyWithDetails.content.length;
+    let completedTasks = 0;
+    const totalTasks = totalScenes * 2; // image + voice per scene
+
+    const assetsSpinner = ora(
+      `Generating images and voice in parallel... [0/${totalTasks}]`,
+    ).start();
+
+    const updateProgress = () => {
+      completedTasks++;
+      assetsSpinner.text = `Generating images and voice in parallel... [${completedTasks}/${totalTasks}]`;
+    };
+
+    // 全シーンの画像生成と音声合成を並列実行
+    await Promise.all(
+      storyWithDetails.content.map(async (storyItem, i) => {
+        // 各シーン内で画像と音声を同時に生成
+        const [, voiceResult] = await Promise.all([
+          generateAiImage({
+            prompt: storyItem.imageDescription,
+            path: contentFs.getImagePath(storyItem.uid),
+            onRetry: () => {},
+          }).then(() => {
+            updateProgress();
+          }),
+          generateVoice(
+            storyItem.text,
+            aivisApiKey!,
+            contentFs.getAudioPath(storyItem.uid),
+            aivisModelUuid,
+          ).then((result) => {
+            updateProgress();
+            return result;
+          }),
+        ]);
+
+        storyItem.durationSeconds = voiceResult.durationSeconds;
+      }),
+    );
+
     contentFs.saveDescriptor(storyWithDetails);
-    imagesSpinner.succeed(chalk.green("Images and voice generated!"));
+    assetsSpinner.succeed(
+      chalk.green(`Images and voice generated! (${totalScenes} scenes, parallel)`),
+    );
 
     const finalSpinner = ora("Generating final result...").start();
     const timeline = createTimeLineFromStoryWithDetails(storyWithDetails);
