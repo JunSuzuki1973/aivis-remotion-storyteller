@@ -1,0 +1,41 @@
+{
+  "shortTitle": "地球をまたにかける小さな旅人：キョクアジサシ",
+  "content": [
+    {
+      "text": "地球上で最も長い距離を旅する動物を知っていますか？それは、体重わずか100gの小さな鳥、キョクアジサシです。",
+      "imageDescription": "A cinematic Google Earth style view zooming out from the Arctic region, showing the curvature of the Earth, with a beautiful small white bird taking flight.",
+      "uid": "scene1",
+      "durationSeconds": 9.74
+    },
+    {
+      "text": "夏の北極圏でヒナを育てた後、彼らは途方もない旅に出発します。目指すのは、なんと地球の反対側、南極です。",
+      "imageDescription": "Satellite view over the Atlantic ocean showing a glowing golden flight path stretching from the North Pole downwards across the blue planet.",
+      "uid": "scene2",
+      "durationSeconds": 10.55
+    },
+    {
+      "text": "ユーラシア大陸やアメリカ大陸の沿岸に沿って、広大な海原を何ヶ月も飛び続けます。",
+      "imageDescription": "High-altitude perspective over the coastline of the Americas, showing a stylized glowing trail of the bird's migration route across the dark ocean.",
+      "uid": "scene3",
+      "durationSeconds": 6.84
+    },
+    {
+      "text": "そしてついに、氷に覆われた南極大陸へと到着します。彼らは太陽を追いかけ、「永遠の夏」を生きる鳥なのです。",
+      "imageDescription": "Sweeping aerial view of the frozen Antarctic landscape, massive icebergs, and deep blue oceans from a satellite-like high altitude perspective.",
+      "uid": "scene4",
+      "durationSeconds": 9.43
+    },
+    {
+      "text": "1年間の移動距離は、なんと地球2周分にあたる約8万キロ！一生の間に飛ぶ距離は、月への往復すら超えてしまいます。",
+      "imageDescription": "Global view of Earth from space, highlighting glowing migration routes connecting the North and South poles, emphasizing the incredible scale.",
+      "uid": "scene5",
+      "durationSeconds": 9.98
+    },
+    {
+      "text": "果てしない空と海を舞う小さな命。その壮大な旅路は、私たちの想像を遥かに超えています。",
+      "imageDescription": "Breathtaking view of the sun setting over the curvature of the Earth, casting golden rays across the clouds, with a small bird silhouette soaring.",
+      "uid": "scene6",
+      "durationSeconds": 8.41
+    }
+  ]
+}

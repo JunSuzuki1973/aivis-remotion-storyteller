@@ -1,4 +1,4 @@
-import { loadFont } from "@remotion/google-fonts/BreeSerif";
+import { loadFont } from "@remotion/google-fonts/NotoSansJP";
 import { Audio } from "@remotion/media";
 import { AbsoluteFill, Sequence, staticFile, useVideoConfig } from "remotion";
 import { z } from "zod";
@@ -37,16 +37,18 @@ export const AIVideo: React.FC<z.infer<typeof aiVideoSchema>> = ({
         >
           <div
             style={{
-              fontSize: 120,
-              lineHeight: "122px",
+              fontSize: 80,
+              lineHeight: "96px",
               width: "87%",
-              color: "black",
+              color: "white",
               fontFamily,
-              textTransform: "uppercase",
-              backgroundColor: "yellow",
-              paddingTop: 20,
-              paddingBottom: 20,
-              border: "10px solid black",
+              fontWeight: "bold",
+              backgroundColor: "rgba(0, 0, 0, 0.75)",
+              paddingTop: 24,
+              paddingBottom: 24,
+              paddingLeft: 16,
+              paddingRight: 16,
+              borderRadius: 16,
             }}
           >
             {timeline.shortTitle}

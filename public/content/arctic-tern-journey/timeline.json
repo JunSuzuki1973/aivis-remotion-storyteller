@@ -1,0 +1,814 @@
+{
+  "shortTitle": "地球をまたにかける小さな旅人：キョクアジサシ",
+  "elements": [
+    {
+      "startMs": 0,
+      "endMs": 9740,
+      "imageUrl": "scene1",
+      "enterTransition": "blur",
+      "exitTransition": "blur",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1.5,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 9740
+        }
+      ]
+    },
+    {
+      "startMs": 9740,
+      "endMs": 20290,
+      "imageUrl": "scene2",
+      "enterTransition": "blur",
+      "exitTransition": "blur",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.5,
+          "startMs": 0,
+          "endMs": 10550
+        }
+      ]
+    },
+    {
+      "startMs": 20290,
+      "endMs": 27130,
+      "imageUrl": "scene3",
+      "enterTransition": "blur",
+      "exitTransition": "blur",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1.5,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 6840
+        }
+      ]
+    },
+    {
+      "startMs": 27130,
+      "endMs": 36560,
+      "imageUrl": "scene4",
+      "enterTransition": "blur",
+      "exitTransition": "blur",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.5,
+          "startMs": 0,
+          "endMs": 9430
+        }
+      ]
+    },
+    {
+      "startMs": 36560,
+      "endMs": 46540,
+      "imageUrl": "scene5",
+      "enterTransition": "blur",
+      "exitTransition": "blur",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1.5,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 9980
+        }
+      ]
+    },
+    {
+      "startMs": 46540,
+      "endMs": 54950,
+      "imageUrl": "scene6",
+      "enterTransition": "blur",
+      "exitTransition": "blur",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.5,
+          "startMs": 0,
+          "endMs": 8410
+        }
+      ]
+    }
+  ],
+  "text": [
+    {
+      "startMs": 0,
+      "endMs": 2164,
+      "text": "地球上で最も長い距離を旅",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 2164,
+      "endMs": 4328,
+      "text": "する動物を知っていますか",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 4328,
+      "endMs": 4509,
+      "text": "？",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6212618145631478,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 4509,
+      "endMs": 5230,
+      "text": "それは、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6053009206973053,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 5230,
+      "endMs": 7395,
+      "text": "体重わずか100gの小さ",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 7395,
+      "endMs": 7936,
+      "text": "な鳥、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7225700523705757,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 7936,
+      "endMs": 9740,
+      "text": "キョクアジサシです。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7410591232995357,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 9740,
+      "endMs": 12222,
+      "text": "夏の北極圏でヒナを育てた",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7818449355254574,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 12222,
+      "endMs": 12636,
+      "text": "後、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7678657132389657,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 12636,
+      "endMs": 15118,
+      "text": "彼らは途方もない旅に出発",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 15118,
+      "endMs": 15945,
+      "text": "します。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 15945,
+      "endMs": 17187,
+      "text": "目指すのは、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6596223972753417,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 17187,
+      "endMs": 19255,
+      "text": "なんと地球の反対側、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6864554986811914,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 19255,
+      "endMs": 20290,
+      "text": "南極です。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 20290,
+      "endMs": 22394,
+      "text": "ユーラシア大陸やアメリカ",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7022501154558165,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 22394,
+      "endMs": 24148,
+      "text": "大陸の沿岸に沿って、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7182895342220296,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 24148,
+      "endMs": 26253,
+      "text": "広大な海原を何ヶ月も飛び",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6551328800302745,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 26253,
+      "endMs": 27130,
+      "text": "続けます。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6095477834613936,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 27130,
+      "endMs": 28399,
+      "text": "そしてついに、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6547481401205266,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 28399,
+      "endMs": 30575,
+      "text": "氷に覆われた南極大陸へと",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7283865742920678,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 30575,
+      "endMs": 31663,
+      "text": "到着します。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6208144548185763,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 31663,
+      "endMs": 33658,
+      "text": "彼らは太陽を追いかけ、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6986704127626314,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 33658,
+      "endMs": 35834,
+      "text": "「永遠の夏」を生きる鳥な",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 35834,
+      "endMs": 36560,
+      "text": "のです。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7646699603989897,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 36560,
+      "endMs": 38374,
+      "text": "1年間の移動距離は、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6471366722438585,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 38374,
+      "endMs": 40552,
+      "text": "なんと地球2周分にあたる",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7648937506653141,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 40552,
+      "endMs": 41640,
+      "text": "約8万キロ！",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 41640,
+      "endMs": 43636,
+      "text": "一生の間に飛ぶ距離は、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 43636,
+      "endMs": 45814,
+      "text": "月への往復すら超えてしま",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 45814,
+      "endMs": 46540,
+      "text": "います。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7263615283271876,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 46540,
+      "endMs": 48942,
+      "text": "果てしない空と海を舞う小",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.7966695479321756,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 48942,
+      "endMs": 49743,
+      "text": "さな命。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6236609891268493,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 49743,
+      "endMs": 51545,
+      "text": "その壮大な旅路は、",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 0.6849633760108329,
+          "to": 1.15,
+          "startMs": 0,
+          "endMs": 300
+        },
+        {
+          "type": "scale",
+          "from": 1.15,
+          "to": 1,
+          "startMs": 300,
+          "endMs": 500
+        }
+      ]
+    },
+    {
+      "startMs": 51545,
+      "endMs": 53948,
+      "text": "私たちの想像を遥かに超え",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    },
+    {
+      "startMs": 53948,
+      "endMs": 54950,
+      "text": "ています。",
+      "position": "center",
+      "animations": [
+        {
+          "type": "scale",
+          "from": 1,
+          "to": 1,
+          "startMs": 0,
+          "endMs": 300
+        }
+      ]
+    }
+  ],
+  "audio": [
+    {
+      "startMs": 0,
+      "endMs": 9740,
+      "audioUrl": "scene1"
+    },
+    {
+      "startMs": 9740,
+      "endMs": 20290,
+      "audioUrl": "scene2"
+    },
+    {
+      "startMs": 20290,
+      "endMs": 27130,
+      "audioUrl": "scene3"
+    },
+    {
+      "startMs": 27130,
+      "endMs": 36560,
+      "audioUrl": "scene4"
+    },
+    {
+      "startMs": 36560,
+      "endMs": 46540,
+      "audioUrl": "scene5"
+    },
+    {
+      "startMs": 46540,
+      "endMs": 54950,
+      "audioUrl": "scene6"
+    }
+  ]
+}
