@@ -79,10 +79,10 @@ export const generateAiImage = async ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "dall-e-3",
+        model: "gpt-image-1",
         prompt,
         size: `${IMAGE_WIDTH}x${IMAGE_HEIGHT}`,
-        response_format: "b64_json",
+        quality: "high",
       }),
     });
 
